@@ -1,0 +1,328 @@
+<!DOCTYPE html>
+<html lang="th">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Commission Information - NTTW.</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
+    <link href="https://fonts.googleapis.com/css2?family=Kanit:wght@300;400;500;600&display=swap" rel="stylesheet">
+    <style>
+        :root {
+            --primary-glow: #00d4ff;
+            --accent-color: #ffffff;
+            --glass-bg: rgba(255, 255, 255, 0.05);
+            --card-bg: rgba(0, 0, 0, 0.7);
+        }
+
+        body {
+            margin: 0;
+            padding: 0;
+            font-family: 'Kanit', sans-serif;
+            background: linear-gradient(rgba(0,0,0,0.85), rgba(0,0,0,0.85)), 
+                        url('https://pbs.twimg.com/profile_banners/1731258671882293249/1768844785/1500x500');
+            background-size: cover;
+            background-position: center;
+            background-attachment: fixed;
+            color: #e0e0e0;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            min-height: 100vh;
+            padding: 60px 20px;
+        }
+
+        .back-btn {
+            align-self: flex-start;
+            text-decoration: none;
+            color: #999;
+            font-size: 0.9rem;
+            margin-bottom: 30px;
+            transition: 0.3s;
+        }
+        .back-btn:hover { color: var(--primary-glow); }
+
+        .header-section {
+            text-align: center;
+            margin-bottom: 60px;
+            max-width: 900px;
+        }
+
+        h1 {
+            font-size: 3rem;
+            font-weight: 600;
+            letter-spacing: 3px;
+            color: #fff;
+            margin-bottom: 20px;
+            text-transform: uppercase;
+        }
+
+        .intro-text {
+            font-size: 1.1rem;
+            color: #ccc;
+            line-height: 1.8;
+            font-weight: 300;
+        }
+
+        .highlight { color: var(--primary-glow); font-weight: 500; }
+
+        /* Price Grid */
+        .grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: 25px;
+            width: 100%;
+            max-width: 1300px;
+            margin-bottom: 80px;
+            align-items: start;
+        }
+
+        .price-card {
+            background: var(--card-bg);
+            border: 1px solid rgba(255,255,255,0.1);
+            padding: 45px 20px;
+            text-align: center;
+            transition: all 0.5s cubic-bezier(0.4, 0, 0.2, 1);
+            position: relative;
+            overflow: hidden;
+        }
+
+        .price-card:hover {
+            transform: translateY(-20px);
+            border-color: var(--primary-glow);
+            background: rgba(0, 0, 0, 0.9);
+            box-shadow: 0 20px 40px rgba(0, 0, 0, 0.6);
+        }
+
+        .card-title { font-size: 0.9rem; color: #888; text-transform: uppercase; letter-spacing: 1px; margin-bottom: 10px; }
+        .price-tag { font-size: 2.2rem; font-weight: 600; color: #fff; margin-bottom: 5px; }
+        .price-sub { font-size: 0.85rem; color: #555; }
+
+        /* Sample Gallery Logic */
+        .sample-gallery {
+            max-height: 0;
+            opacity: 0;
+            display: flex;
+            justify-content: center;
+            gap: 12px;
+            margin-top: 0;
+            transition: all 0.5s ease;
+        }
+
+        .price-card:hover .sample-gallery {
+            max-height: 250px;
+            opacity: 1;
+            margin-top: 30px;
+        }
+
+        .sample-item {
+            width: 85px;
+            height: 110px;
+            background: #111;
+            border: 1px solid rgba(255,255,255,0.1);
+            overflow: hidden;
+            transition: 0.3s;
+            display: block;
+        }
+
+        .sample-item img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+            filter: grayscale(0.6);
+            transition: 0.3s;
+        }
+
+        .sample-item:hover {
+            transform: scale(1.1);
+            border-color: var(--primary-glow);
+            z-index: 2;
+            box-shadow: 0 0 15px var(--primary-glow);
+        }
+
+        .sample-item:hover img {
+            filter: grayscale(0);
+        }
+
+        /* Info Section */
+        .details-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(350px, 1fr));
+            gap: 40px;
+            width: 100%;
+            max-width: 1200px;
+        }
+
+        .info-group h3 {
+            font-size: 1.2rem;
+            border-bottom: 1px solid #333;
+            padding-bottom: 12px;
+            margin-bottom: 22px;
+            color: #fff;
+            text-transform: uppercase;
+            letter-spacing: 1px;
+        }
+
+        .info-list {
+            list-style: none;
+            padding: 0;
+            margin: 0;
+            font-size: 0.95rem;
+            line-height: 2.2;
+        }
+
+        .info-list li { display: flex; align-items: baseline; gap: 10px; color: #bbb; }
+        .info-list li::before { content: "•"; color: var(--primary-glow); }
+
+        .payment-methods {
+            display: flex;
+            gap: 15px;
+            margin-top: 20px;
+        }
+
+        .method {
+            font-size: 0.8rem;
+            border: 1px solid #333;
+            padding: 5px 15px;
+            border-radius: 4px;
+            color: #fff;
+        }
+
+        .cta-section {
+            margin-top: 100px;
+            text-align: center;
+        }
+
+        .cta-button {
+            display: inline-block;
+            background: #fff;
+            color: #000;
+            text-decoration: none;
+            padding: 20px 50px;
+            border-radius: 0;
+            font-weight: 600;
+            letter-spacing: 2px;
+            transition: 0.3s;
+            border: 1px solid #fff;
+        }
+
+        .cta-button:hover {
+            background: transparent;
+            color: #fff;
+        }
+
+        .footer-note {
+            margin-top: 35px;
+            font-size: 0.8rem;
+            color: #555;
+            letter-spacing: 0.5px;
+        }
+    </style>
+</head>
+<body>
+
+    <a href="index.html" class="back-btn"><i class="fas fa-long-arrow-alt-left"></i> BACK TO OVERVIEW</a>
+
+    <div class="header-section">
+        <h1>COMMISSION</h1>
+        <p class="intro-text">
+            
+        </p>
+    </div>
+
+    <div class="grid">
+        <div class="price-card">
+            <div class="card-title">Bust-up</div>
+            <div class="price-tag">300 THB</div>
+            <div class="price-sub">Focus on Head to Chest</div>
+            <div class="sample-gallery">
+                <a href="https://drive.google.com/drive/folders/1x4siFw9hGtN-T-4RCgCwnoc5s-ptfIcD?usp=drive_link" class="sample-item" target="_blank"><img src="D:\WepPort\imageindex\AstraYao2.png" alt="Sample"></a>
+                <a href="https://drive.google.com/drive/folders/1x4siFw9hGtN-T-4RCgCwnoc5s-ptfIcD?usp=drive_link" class="sample-item" target="_blank"><img src="D:\WepPort\imageindex\Reze.png" alt="Sample"></a>
+                <a href="https://drive.google.com/drive/folders/1x4siFw9hGtN-T-4RCgCwnoc5s-ptfIcD?usp=drive_link" class="sample-item" target="_blank"><img src="D:\WepPort\imageindex\Acheron8.png" alt="Sample"></a>
+            </div>
+        </div>
+
+        <div class="price-card">
+            <div class="card-title">Half-body</div>
+            <div class="price-tag">700 THB</div>
+            <div class="price-sub">Focus on Waist up</div>
+            <div class="sample-gallery">
+                <a href="https://drive.google.com/drive/folders/1RYZefgCK5_Ayuxaewv4FtE41si-7_u1l?usp=drive_link" class="sample-item" target="_blank"><img src="D:\WepPort\imageindex\Clorinde.png" alt="Sample"></a>
+                <a href="https://drive.google.com/drive/folders/1RYZefgCK5_Ayuxaewv4FtE41si-7_u1l?usp=drive_link" class="sample-item" target="_blank"><img src="D:\WepPort\imageindex\HertaWolf.png" alt="Sample"></a>
+                <a href="https://drive.google.com/drive/folders/1RYZefgCK5_Ayuxaewv4FtE41si-7_u1l?usp=drive_link" class="sample-item" target="_blank"><img src="D:\WepPort\imageindex\Qureen.jpg" alt="Sample"></a>
+            </div>
+        </div>
+
+        <div class="price-card">
+            <div class="card-title">Full-body</div>
+            <div class="price-tag">1,000 THB</div>
+            <div class="price-sub">Whole character scale</div>
+            <div class="sample-gallery">
+                <a href="https://drive.google.com/drive/folders/1Hg7EHtsWhNaqxFKdxfFpZfYFDEHgzFUV?usp=drive_link" class="sample-item" target="_blank"><img src="D:\WepPort\imageindex\ARTYaoguang-Illustration.png" alt="Sample"></a>
+                <a href="https://drive.google.com/drive/folders/1Hg7EHtsWhNaqxFKdxfFpZfYFDEHgzFUV?usp=drive_link" class="sample-item" target="_blank"><img src="D:\WepPort\imageindex\Yixuan.png" alt="Sample"></a>
+                <a href="https://drive.google.com/drive/folders/1Hg7EHtsWhNaqxFKdxfFpZfYFDEHgzFUV?usp=drive_link" class="sample-item" target="_blank"><img src="D:\WepPort\imageindex\Lynea.png" alt="Sample"></a>
+            </div>
+        </div>
+
+        <div class="price-card" style="border-color: #333;">
+            <div class="card-title">NSFW (18+)</div>
+            <div class="price-tag">1,500 + THB</div>
+            <div class="price-sub">Full-body with Variants included</div>
+            <div class="sample-gallery">
+                <a href="https://drive.google.com/drive/folders/149mWTQTluaAamGchKvsuAfpvvH6-OxPc?usp=drive_link" class="sample-item" target="_blank"><img src="D:\WepPort\imageindex\ZIBAI4444.png" alt="Sample"></a>
+                <a href="https://drive.google.com/drive/folders/149mWTQTluaAamGchKvsuAfpvvH6-OxPc?usp=drive_link" class="sample-item" target="_blank"><img src="D:\WepPort\imageindex\AstraSexValantly1.png" alt="Sample"></a>
+                <a href="https://drive.google.com/drive/folders/149mWTQTluaAamGchKvsuAfpvvH6-OxPc?usp=drive_link" class="sample-item" target="_blank"><img src="D:\WepPort\imageindex\Eva.png" alt="Sample"></a>
+            </div>
+        </div>
+    </div>
+
+    <div class="details-grid">
+        <div class="info-group">
+            <h3>SERVICE DETAILS</h3>
+            <ul class="info-list">
+                <li>CHARACTER ADDITION: x2 of base price</li>
+                <li>Commercial use is available with additional fee (x2 total price).</li>
+                <li>BACKGROUND Add-on: Starting at +200 THB (Price may vary depending on complexity.)</li>
+                <li>DELIVERY: PNG & JPG (300 DPI) via Google Drive<br>PSD File: +50% of total price</li>
+                <li>REVISIONS: 3 times (Sketch & Coloring stages)</li>
+                <li>PROCESS: Sketch → Coloring → Final</li>
+                <li>RUSH OHDER: +50% to +100% of total price (Delivery within 3 days)</li>
+                <li>EXTRA REVISION: +100 THB per revision (Only small adjustments allowed after final delivery)</li>
+            </ul>
+        </div>
+
+        <div class="info-group">
+            <h3>GUIDELINES</h3>
+            <ul class="info-list">
+                <li>ACCEPTED: Female / OC / Fanart / Semi-Anthros / SFW-NSFW</li>
+                <li>DELIVERY: Elderly / Heavy Muscular / Extreme Gore / Male / Fetish</li>
+                <li>WORKFLOW: 7 - 14 business days<br>• Sketch → Client confirmation<br>• Coloring → Minor revisions allowed<br>• Final render → No major changes allowed<br>Revisions are only allowed during sketch and coloring stages.</li>
+                <li>The artist reserves the right to post the artwork for portfolio and social media unless discussed otherwise.<br>• Credit is required when posting.</li>
+                <li>AI use is strictly prohibited (including training and NFT).</li>
+                <li>CANCELLATION & REFUND<br>• Before starting: Full refund<br>• After sketch: 50% refund]<br>• After coloring has begun: Only 20% refund]</li>
+            </ul>
+        </div>
+
+        <div class="info-group">
+            <h3>PAYMENT</h3>
+            <div class="payment-methods">
+                <span class="method">K-BANK</span>
+                <span class="method">PROMPTPAY</span>
+                <span class="method">TRUEMONEY</span>
+            </div>
+            <p style="font-size: 0.9rem; margin-top: 15px; color: #888;">
+                Deposit: 50% or Full payment is required before starting the project.
+            </p>
+        </div>
+    </div>
+
+    <div class="cta-section">
+        <a href="https://www.facebook.com/nattw.thx/about?locale=th_TH" class="cta-button" target="_blank">
+            INQUIRY & ORDER
+        </a>
+        <div class="footer-note">
+            The artist reserves the right to use the completed artwork for portfolio and promotion.
+        </div>
+    </div>
+
+</body>
+</html>
